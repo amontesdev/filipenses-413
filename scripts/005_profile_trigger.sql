@@ -6,10 +6,16 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
 BEGIN
-  INSERT INTO public.profiles (id, github_username, avatar_url)
+  INSERT INTO public.profiles (id, display_name, avatar_url)
   VALUES (
     NEW.id,
-    COALESCE(NEW.raw_user_meta_data ->> 'user_name', NEW.raw_user_meta_data ->> 'preferred_username', NULL),
+    COALESCE(
+      NEW.raw_user_meta_data ->> 'full_name',
+      NEW.raw_user_meta_data ->> 'name',
+      NEW.raw_user_meta_data ->> 'user_name',
+      NEW.raw_user_meta_data ->> 'preferred_username',
+      NULL
+    ),
     COALESCE(NEW.raw_user_meta_data ->> 'avatar_url', NULL)
   )
   ON CONFLICT (id) DO NOTHING;

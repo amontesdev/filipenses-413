@@ -76,7 +76,7 @@ export function CreateSecretDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-[500px]">
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/10">
@@ -130,7 +130,7 @@ export function CreateSecretDialog({
               onChange={(e) => setFormData({ ...formData, value: e.target.value })}
               placeholder="Enter the secret value"
               rows={3}
-              className="font-mono text-sm"
+              className="field-sizing-fixed max-h-64 resize-y overflow-x-auto whitespace-pre-wrap break-all font-mono text-sm"
               required
             />
             <p className="text-xs text-muted-foreground">

@@ -259,6 +259,10 @@ Before implementation, create a small technical design that covers:
 - AWS IAM model
 - rollout and rollback strategy
 
+For the concrete migration sequence, compatibility rules, and rollback approach, see:
+
+- [AWS Migration Execution Plan](./AWS_MIGRATION_EXECUTION_PLAN.md)
+
 ## Related Documentation
 
 - [Secrets Architecture](./SECRETS_ARCHITECTURE.md)

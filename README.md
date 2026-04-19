@@ -51,6 +51,7 @@ Follow the setup guides in [`docs/`](./docs):
 
 - [Secrets Architecture](./docs/SECRETS_ARCHITECTURE.md)
 - [AWS Migration Plan](./docs/AWS_MIGRATION_PLAN.md)
+- [AWS Migration Execution Plan](./docs/AWS_MIGRATION_EXECUTION_PLAN.md)
 
 ### 4. Start the development server
 

@@ -2,6 +2,10 @@
 
 A personal developer project hub built with **Next.js** and **Supabase**.
 
+## Project Status
+
+This project is in **active development**. Expect ongoing changes to features, setup, and internal architecture.
+
 It helps track projects, store encrypted secrets in a vault, and keep a lightweight activity feed for day-to-day development work.
 
 ## Features
@@ -18,7 +22,6 @@ It helps track projects, store encrypted secrets in a vault, and keep a lightwei
 - [React](https://react.dev)
 - [Supabase](https://supabase.com)
 - [Tailwind CSS](https://tailwindcss.com)
-- [v0](https://v0.app)
 
 ## Getting Started
 
@@ -38,6 +41,8 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=...
 ENCRYPTION_KEY=...
 ```
 
+You can start from [`.env.example`](./.env.example) and copy the values into your local `.env.local`.
+
 ### 3. Configure Supabase and GitHub OAuth
 
 Follow the setup guides in [`docs/`](./docs):
@@ -50,8 +55,6 @@ Follow the setup guides in [`docs/`](./docs):
 #### Architecture guides
 
 - [Secrets Architecture](./docs/SECRETS_ARCHITECTURE.md)
-- [AWS Migration Plan](./docs/AWS_MIGRATION_PLAN.md)
-- [AWS Migration Execution Plan](./docs/AWS_MIGRATION_EXECUTION_PLAN.md)
 
 ### 4. Start the development server
 
@@ -67,16 +70,16 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - Secret values are encrypted before being stored in the database.
 - The root request hook uses `proxy.ts` for session refresh and auth flow integration.
 
-## Built with v0
+## Open Source
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below. Every merge to `main` will automatically deploy.
-
-- [Continue working on v0](https://v0.app/chat/projects/prj_k2zXuLBYu59THPXWI2IwzO64eTuL)
+- License: [MIT](./LICENSE)
+- Contributing guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
+- Code of conduct: [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+- Security policy: [SECURITY.md](./SECURITY.md)
+- Changelog: [CHANGELOG.md](./CHANGELOG.md)
+- Release process: [RELEASING.md](./RELEASING.md)
 
 ## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Supabase Documentation](https://supabase.com/docs)
-- [v0 Documentation](https://v0.app/docs)
-
-<a href="https://v0.app/chat/api/kiro/clone/amontesdev/filipenses-414" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>

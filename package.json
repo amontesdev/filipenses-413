@@ -1,5 +1,6 @@
 {
-  "name": "my-project",
+  "name": "filipenses-413",
+  "description": "Self-hosted project manager",
   "version": "0.1.0",
   "private": true,
   "scripts": {

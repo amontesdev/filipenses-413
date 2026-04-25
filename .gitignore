@@ -24,6 +24,10 @@ package-lock.json
 .env.production.local
 .env.*.local
 
+# Internal docs not ready for public release
+docs/AWS_MIGRATION_PLAN.md
+docs/AWS_MIGRATION_EXECUTION_PLAN.md
+
 # Logs
 *.log
 .next-dev.log

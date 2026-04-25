@@ -32,12 +32,7 @@ export function DashboardSidebar({ profile }: DashboardSidebarProps) {
     <aside className="hidden w-64 flex-shrink-0 border-r border-sidebar-border bg-sidebar lg:flex lg:flex-col">
       {/* Logo */}
       <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-6">
-        <Link href="/dashboard" className="flex items-center gap-3">
-          <img
-            src="/icon.svg"
-            alt="Filipenses-413 icon"
-            className="h-8 w-8 rounded-xl"
-          />
+        <Link href="/dashboard" className="flex items-center">
           <img
             src="/filipenses-413-logo.svg"
             alt="Filipenses-413"

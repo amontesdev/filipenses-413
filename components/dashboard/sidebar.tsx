@@ -32,10 +32,18 @@ export function DashboardSidebar({ profile }: DashboardSidebarProps) {
     <aside className="hidden w-64 flex-shrink-0 border-r border-sidebar-border bg-sidebar lg:flex lg:flex-col">
       {/* Logo */}
       <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-6">
-        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10">
-          <span className="text-lg font-bold text-primary">4</span>
-        </div>
-        <span className="font-semibold text-sidebar-foreground">filipenses-413</span>
+        <Link href="/dashboard" className="flex items-center gap-3">
+          <img
+            src="/icon.svg"
+            alt="Filipenses-413 icon"
+            className="h-8 w-8 rounded-xl"
+          />
+          <img
+            src="/filipenses-413-logo.svg"
+            alt="Filipenses-413"
+            className="h-8 w-auto"
+          />
+        </Link>
       </div>
 
       {/* Navigation */}

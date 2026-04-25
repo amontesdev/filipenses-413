@@ -46,12 +46,18 @@ export function MobileNav({ open, onClose, profile }: MobileNavProps) {
       <div className="fixed inset-y-0 left-0 w-64 bg-sidebar border-r border-sidebar-border">
         {/* Header */}
         <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10">
-              <span className="text-lg font-bold text-primary">4</span>
-            </div>
-            <span className="font-semibold text-sidebar-foreground">filipenses-413</span>
-          </div>
+          <Link href="/dashboard" onClick={onClose} className="flex items-center gap-3">
+            <img
+              src="/icon.svg"
+              alt="Filipenses-413 icon"
+              className="h-8 w-8 rounded-xl"
+            />
+            <img
+              src="/filipenses-413-logo.svg"
+              alt="Filipenses-413"
+              className="h-8 w-auto"
+            />
+          </Link>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-5 w-5" />
             <span className="sr-only">Close menu</span>

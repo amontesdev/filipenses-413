@@ -6,15 +6,13 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 
 ## [Unreleased]
 
-### Added
+## [0.1.1] - 2026-04-25
 
-- MIT license
-- Contributing guide
-- Code of conduct
-- Security policy
-- Release process documentation
-- GitHub issue and pull request templates
-- Public environment example
+### Changed
+
+- Updated the project branding with the F413 logo in the README and dashboard sidebar
+- Replaced the default scaffold favicon with a project-specific icon
+- Removed leftover scaffold branding assets and placeholder logo files
 
 ## [0.1.0] - 2026-04-25
 

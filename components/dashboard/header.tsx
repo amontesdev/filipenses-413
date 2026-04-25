@@ -52,21 +52,21 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
   return (
     <>
       <header className="flex h-16 items-center justify-between border-b border-border bg-background px-4 lg:px-6">
-        {/* Mobile menu button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="lg:hidden"
-          onClick={() => setMobileNavOpen(true)}
-        >
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">Open menu</span>
-        </Button>
+        <div className="flex min-w-0 items-center gap-3">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            onClick={() => setMobileNavOpen(true)}
+          >
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Open menu</span>
+          </Button>
 
-        {/* Page title */}
-        <h1 className="text-lg font-semibold text-foreground">
-          {getPageTitle()}
-        </h1>
+          <h1 className="truncate text-lg font-semibold text-foreground">
+            {getPageTitle()}
+          </h1>
+        </div>
 
         {/* User menu */}
         <DropdownMenu>

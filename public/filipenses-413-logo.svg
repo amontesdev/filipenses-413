@@ -1,0 +1,9 @@
+<svg width="720" height="180" viewBox="0 0 720 180" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">F413 wordmark</title>
+  <desc id="desc">Minimal F413 wordmark with the 4 highlighted in green.</desc>
+  <rect width="720" height="180" rx="28" fill="#050505"/>
+  <text x="80" y="118" fill="#F5F5F5" font-family="Geist, Inter, Arial, sans-serif" font-size="88" font-weight="700" letter-spacing="-0.06em">F</text>
+  <text x="133" y="118" fill="#00C97B" font-family="Geist, Inter, Arial, sans-serif" font-size="88" font-weight="700" letter-spacing="-0.06em">4</text>
+  <text x="186" y="118" fill="#F5F5F5" font-family="Geist, Inter, Arial, sans-serif" font-size="88" font-weight="700" letter-spacing="-0.06em">13</text>
+  <path d="M82 134H306" stroke="#202020" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -1,4 +1,8 @@
-# filipenses-413
+<p align="center">
+  <img src="./public/filipenses-413-logo.svg" alt="Filipenses-413 logo" width="680" />
+</p>
+
+# Filipenses-413
 
 A personal developer project hub built with **Next.js** and **Supabase**.
 

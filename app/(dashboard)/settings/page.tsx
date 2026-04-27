@@ -7,8 +7,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { Loader2, Sparkles, Plus } from "lucide-react";
 import useSWR from "swr";
+import { AiKeysList } from "@/components/ai/ai-keys-list";
+import { AddAiKeyDialog } from "@/components/ai/add-ai-key-dialog";
+import type { UserAiKey, AiProvider } from "@/lib/types";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 async function fetchProfile() {
   const supabase = createClient();
@@ -31,6 +41,33 @@ export default function SettingsPage() {
   const [displayName, setDisplayName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
+
+  async function fetchAiKeys(): Promise<{ keys: UserAiKey[] }> {
+    const res = await fetch("/api/ai/keys");
+    if (!res.ok) throw new Error("Failed to fetch AI keys");
+    return res.json();
+  }
+
+  async function fetchAiPreferences(): Promise<{ preferred_provider: string }> {
+    const res = await fetch("/api/ai/preferences");
+    if (!res.ok) return { preferred_provider: "openai" };
+    return res.json();
+  }
+
+  const { data: aiKeysData, mutate: mutateAiKeys } = useSWR("ai-keys", fetchAiKeys);
+  const { data: prefsData, mutate: mutatePrefs } = useSWR("ai-preferences", fetchAiPreferences);
+
+  async function handleProviderChange(value: AiProvider) {
+    await fetch("/api/ai/preferences", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ preferred_provider: value }),
+    });
+    mutatePrefs();
+  }
+
+  const preferredProvider = prefsData?.preferred_provider || "openai";
 
   // Initialize display name when data loads
   if (data?.profile && !displayName && data.profile.display_name) {
@@ -132,6 +169,60 @@ export default function SettingsPage() {
           </div>
         </CardContent>
       </Card>
+
+      <Card className="border-border bg-card">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/10">
+              <Sparkles className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <CardTitle className="text-foreground">AI Providers</CardTitle>
+              <CardDescription>
+                Connect your API keys to enable AI-assisted project field filling
+              </CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label>Preferred Provider</Label>
+            <Select
+              value={preferredProvider}
+              onValueChange={handleProviderChange}
+            >
+              <SelectTrigger className="w-[200px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="openai">OpenAI</SelectItem>
+                <SelectItem value="deepseek">DeepSeek</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              This provider will be used for AI field filling
+            </p>
+          </div>
+
+          <AiKeysList
+            keys={aiKeysData?.keys || []}
+            onUpdate={mutateAiKeys}
+          />
+          <Button variant="outline" onClick={() => setAddDialogOpen(true)}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add AI Key
+          </Button>
+        </CardContent>
+      </Card>
+
+      <AddAiKeyDialog
+        open={addDialogOpen}
+        onOpenChange={setAddDialogOpen}
+        onSuccess={() => {
+          mutateAiKeys();
+          setAddDialogOpen(false);
+        }}
+      />
     </div>
   );
 }

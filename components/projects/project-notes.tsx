@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { TiptapEditor } from "@/components/editor/tiptap-editor";
+import { FillWithAiButton } from "@/components/ai/fill-with-ai-button";
 import type { JSONContent } from "@tiptap/react";
 
 interface ProjectNotesProps {
@@ -34,7 +35,7 @@ export function ProjectNotes({ projectId, initialContent, onSave }: ProjectNotes
     });
 
     setIsSaving(false);
-    
+
     if (res.ok) {
       setHasChanges(false);
       onSave();
@@ -53,6 +54,15 @@ export function ProjectNotes({ projectId, initialContent, onSave }: ProjectNotes
           {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Save Notes
         </Button>
+        <FillWithAiButton
+          projectId={projectId}
+          field="notes"
+          onComplete={(value) => {
+            setContent({ type: "text", text: value });
+            setHasChanges(true);
+          }}
+          className="ml-auto"
+        />
         {hasChanges && (
           <span className="text-xs text-muted-foreground">Unsaved changes</span>
         )}

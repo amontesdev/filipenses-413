@@ -57,3 +57,22 @@ export const PROJECT_STATUS_CONFIG: Record<ProjectStatus, { label: string; color
   launched: { label: "Launched", color: "bg-emerald-100 text-emerald-800" },
   archived: { label: "Archived", color: "bg-zinc-100 text-zinc-600" },
 };
+
+export type AiProvider = "openai" | "anthropic" | "google" | "deepseek";
+
+export interface UserAiKey {
+  id: string;
+  user_id: string;
+  provider: AiProvider;
+  name: string;
+  encrypted_value?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// Internal type used server-side where encrypted_value is always present
+export interface UserAiKeyWithSecret extends UserAiKey {
+  encrypted_value: string;
+}
+
+export type AiField = "description" | "notes" | "name";

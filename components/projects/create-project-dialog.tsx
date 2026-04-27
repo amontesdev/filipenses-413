@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
 import { PROJECT_STATUS_CONFIG, type ProjectStatus } from "@/lib/types";
+import { FillWithAiButton } from "@/components/ai/fill-with-ai-button";
 
 interface CreateProjectDialogProps {
   open: boolean;
@@ -31,6 +32,7 @@ interface CreateProjectDialogProps {
 
 export function CreateProjectDialog({ open, onOpenChange, onSuccess }: CreateProjectDialogProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isGeneratingDescription, setIsGeneratingDescription] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -82,7 +84,15 @@ export function CreateProjectDialog({ open, onOpenChange, onSuccess }: CreatePro
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name *</Label>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="name">Name *</Label>
+              <FillWithAiButton
+                projectName={formData.description || "New project"}
+                field="name"
+                onComplete={(value) => setFormData({ ...formData, name: value })}
+                className="mb-2"
+              />
+            </div>
             <Input
               id="name"
               value={formData.name}
@@ -93,7 +103,15 @@ export function CreateProjectDialog({ open, onOpenChange, onSuccess }: CreatePro
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="description">Description</Label>
+              <FillWithAiButton
+                projectName={formData.name}
+                field="description"
+                onComplete={(value) => setFormData({ ...formData, description: value })}
+                className="mb-2"
+              />
+            </div>
             <Textarea
               id="description"
               value={formData.description}

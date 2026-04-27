@@ -20,6 +20,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, Github, ExternalLink, Loader2, KeyRound } from "lucide-react";
 import { PROJECT_STATUS_CONFIG, type Project, type ProjectStatus } from "@/lib/types";
 import { ProjectNotes } from "@/components/projects/project-notes";
+import { FillWithAiButton } from "@/components/ai/fill-with-ai-button";
 
 async function fetchProject(id: string): Promise<{ project: Project }> {
   const res = await fetch(`/api/projects/${id}`);
@@ -117,7 +118,14 @@ export default function ProjectDetailPage({
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="name">Name</Label>
+                <FillWithAiButton
+                  projectId={id}
+                  field="name"
+                  onComplete={(value) => setFormData({ ...formData, name: value })}
+                />
+              </div>
               <Input
                 id="name"
                 value={formData?.name || ""}
@@ -126,7 +134,14 @@ export default function ProjectDetailPage({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="description">Description</Label>
+                <FillWithAiButton
+                  projectId={id}
+                  field="description"
+                  onComplete={(value) => setFormData({ ...formData, description: value })}
+                />
+              </div>
               <Textarea
                 id="description"
                 value={formData?.description || ""}

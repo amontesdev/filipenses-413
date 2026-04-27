@@ -19,6 +19,8 @@ Run these scripts in this exact order:
 5. `scripts/004_create_activity.sql`
 6. `scripts/005_profile_trigger.sql`
 7. `scripts/006_backfill_profiles.sql` *(recommended if users may already exist in `auth.users`)*
+8. `scripts/007_create_user_ai_keys.sql` *(for BYOK AI Keys feature)*
+9. `scripts/008_create_user_ai_preferences.sql` *(for BYOK AI Keys feature)*
 
 ## What Each Script Does
 
@@ -57,6 +59,16 @@ Run these scripts in this exact order:
 - Inserts missing `profiles` rows for users that already existed before the trigger was created
 - Safe to run more than once because it only inserts missing profiles
 
+### `007_create_user_ai_keys.sql`
+- Creates `public.user_ai_keys`
+- Stores encrypted AI provider API keys (OpenAI, DeepSeek, etc.)
+- Adds RLS policies and trigger for `updated_at`
+
+### `008_create_user_ai_preferences.sql`
+- Creates `public.user_ai_preferences`
+- Stores user's preferred AI provider selection
+- Adds RLS policies
+
 ## Why `006_backfill_profiles.sql` Matters
 
 If a user exists in `auth.users` but does not exist in `public.profiles`, creating a project will fail with a foreign key error like:
@@ -93,6 +105,8 @@ Expected public tables:
 - `profiles`
 - `projects`
 - `secrets`
+- `user_ai_keys`
+- `user_ai_preferences`
 
 ## Required Environment Variables
 
@@ -124,6 +138,15 @@ After DB setup and env configuration:
 4. Create a secret
 5. Reveal the secret
 6. Check the activity feed
+
+## AI Keys Setup (v0.2.0+)
+
+For the BYOK AI Keys feature:
+
+1. Run `scripts/007_create_user_ai_keys.sql`
+2. Run `scripts/008_create_user_ai_preferences.sql`
+3. After pulling, run `npm install openai`
+4. Add an AI provider key in Settings → AI Providers
 
 ## Notes
 

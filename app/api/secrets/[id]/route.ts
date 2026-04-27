@@ -127,7 +127,7 @@ export async function DELETE(
 
   // Log activity
   if (secret) {
-    const projectName = (secret.projects as { name: string } | null)?.name || "Unknown";
+    const projectName = (secret.projects as { name: string }[] | null)?.[0]?.name || "Unknown";
     await supabase.from("activity_logs").insert({
       user_id: user.id,
       project_id: secret.project_id,

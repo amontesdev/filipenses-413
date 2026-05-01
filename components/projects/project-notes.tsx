@@ -58,7 +58,16 @@ export function ProjectNotes({ projectId, initialContent, onSave }: ProjectNotes
           projectId={projectId}
           field="notes"
           onComplete={(value) => {
-            setContent({ type: "text", text: value });
+            // Convert plain text to TipTap JSON format
+            setContent({
+              type: "doc",
+              content: [
+                {
+                  type: "paragraph",
+                  content: [{ type: "text", text: value }],
+                },
+              ],
+            });
             setHasChanges(true);
           }}
           className="ml-auto"

@@ -1,9 +1,10 @@
 CREATE TABLE public.user_ai_keys (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
-  provider TEXT NOT NULL CHECK (provider IN ('openai', 'anthropic', 'google', 'deepseek')),
+  provider TEXT NOT NULL CHECK (provider IN ('openai', 'anthropic', 'google', 'deepseek', 'ollama')),
   name TEXT NOT NULL,
-  encrypted_value TEXT NOT NULL,
+  encrypted_value TEXT, -- Nullable to support local providers like Ollama
+  model_name TEXT, -- Model name for local providers (e.g. llama3.2 for Ollama)
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE(user_id, provider, name)

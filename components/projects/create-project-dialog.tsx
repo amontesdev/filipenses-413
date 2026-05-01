@@ -89,6 +89,7 @@ export function CreateProjectDialog({ open, onOpenChange, onSuccess }: CreatePro
               <FillWithAiButton
                 projectName={formData.description || "New project"}
                 field="name"
+                currentValue={formData.name}
                 onComplete={(value) => setFormData({ ...formData, name: value })}
                 className="mb-2"
               />
@@ -108,6 +109,7 @@ export function CreateProjectDialog({ open, onOpenChange, onSuccess }: CreatePro
               <FillWithAiButton
                 projectName={formData.name}
                 field="description"
+                currentValue={formData.description}
                 onComplete={(value) => setFormData({ ...formData, description: value })}
                 className="mb-2"
               />

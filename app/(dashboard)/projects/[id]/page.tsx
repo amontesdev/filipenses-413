@@ -123,6 +123,7 @@ export default function ProjectDetailPage({
                 <FillWithAiButton
                   projectId={id}
                   field="name"
+                  currentValue={formData?.name || undefined}
                   onComplete={(value) => setFormData({ ...formData, name: value })}
                 />
               </div>
@@ -139,6 +140,7 @@ export default function ProjectDetailPage({
                 <FillWithAiButton
                   projectId={id}
                   field="description"
+                  currentValue={formData?.description || undefined}
                   onComplete={(value) => setFormData({ ...formData, description: value })}
                 />
               </div>

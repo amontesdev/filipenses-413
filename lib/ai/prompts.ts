@@ -2,6 +2,14 @@ import type { AiField } from "@/lib/types";
 
 export function buildPrompt(field: AiField, projectName: string, currentValue?: string): string {
   if (field === "name") {
+    if (currentValue) {
+      return `You are a creative project naming assistant. Given the existing project name and a brief description, generate an improved project name that better reflects the project (1-5 words).
+
+Context: "${projectName}"
+Existing name: "${currentValue}"
+
+Output ONLY the improved project name. No quotes, no explanation, no commentary.`;
+    }
     return `You are a creative project naming assistant. Given a brief description or context, generate a concise, memorable project name (1-5 words).
 
 Context: "${projectName}"
@@ -10,6 +18,14 @@ Output ONLY the project name. No quotes, no explanation, no commentary.`;
   }
 
   if (field === "description") {
+    if (currentValue) {
+      return `You are a professional project manager. Given the project name and existing description below, improve and expand it into a concise, professional description (1-3 sentences).
+
+Project name: "${projectName}"
+Existing description: "${currentValue}"
+
+Output ONLY the improved description text. No markdown, no commentary, no prefixes.`;
+    }
     return `You are a professional project manager. Given the project name below, generate a concise, professional project description (1-3 sentences).
 
 Project name: "${projectName}"

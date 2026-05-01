@@ -8,8 +8,8 @@ import type { AiField } from "@/lib/types";
 interface FillWithAiButtonProps {
   projectId?: string;
   projectName?: string;
-  contextOverride?: string;
   field: AiField;
+  currentValue?: string;
   onComplete: (value: string) => void;
   className?: string;
 }
@@ -17,8 +17,8 @@ interface FillWithAiButtonProps {
 export function FillWithAiButton({
   projectId,
   projectName,
-  contextOverride,
   field,
+  currentValue,
   onComplete,
   className,
 }: FillWithAiButtonProps) {
@@ -26,7 +26,7 @@ export function FillWithAiButton({
   const [error, setError] = useState<string | null>(null);
 
   async function handleClick() {
-    if (!projectId && !projectName && !contextOverride) {
+    if (!projectId && !projectName) {
       setError("Enter a project name or description first");
       return;
     }
@@ -37,7 +37,7 @@ export function FillWithAiButton({
     const body: Record<string, string> = { field };
     if (projectId) body.project_id = projectId;
     if (projectName) body.project_name = projectName;
-    if (contextOverride) body.project_name = contextOverride;
+    if (currentValue) body.current_value = currentValue;
 
     const res = await fetch("/api/ai/complete", {
       method: "POST",

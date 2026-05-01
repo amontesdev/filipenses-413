@@ -6,6 +6,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
 import Link from "@tiptap/extension-link";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -63,6 +64,13 @@ export function TiptapEditor({ content, onChange, placeholder = "Start writing..
       },
     },
   });
+
+  // Sync external content changes to the editor (e.g. from AI fill)
+  useEffect(() => {
+    if (editor && content) {
+      editor.commands.setContent(content, { emitUpdate: false });
+    }
+  }, [editor, content]);
 
   if (!editor) {
     return null;

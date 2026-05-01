@@ -197,6 +197,7 @@ export default function SettingsPage() {
               <SelectContent>
                 <SelectItem value="openai">OpenAI</SelectItem>
                 <SelectItem value="deepseek">DeepSeek</SelectItem>
+                <SelectItem value="ollama">Ollama (Local)</SelectItem>
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">

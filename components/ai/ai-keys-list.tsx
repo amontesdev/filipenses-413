@@ -51,7 +51,10 @@ function AiKeyItem({
     anthropic: "Anthropic",
     google: "Google",
     deepseek: "DeepSeek",
+    ollama: "Ollama",
   };
+
+  const isLocal = keyItem.provider === "ollama";
 
   return (
     <>
@@ -70,9 +73,15 @@ function AiKeyItem({
                 <span className="text-xs text-muted-foreground px-2 py-0.5 bg-muted rounded">
                   {keyItem.name}
                 </span>
+                {isLocal && keyItem.model_name && (
+                  <span className="text-xs text-muted-foreground px-2 py-0.5 bg-primary/10 rounded">
+                    {keyItem.model_name}
+                  </span>
+                )}
               </div>
               <p className="text-sm text-muted-foreground mt-0.5">
                 Added {new Date(keyItem.created_at).toLocaleDateString()}
+                {isLocal && !keyItem.model_name && " · No model selected"}
               </p>
             </div>
 

@@ -1,7 +1,7 @@
 CREATE TABLE public.user_ai_preferences (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE UNIQUE,
-  preferred_provider TEXT NOT NULL DEFAULT 'openai',
+  preferred_provider TEXT NOT NULL DEFAULT 'openai' CHECK (preferred_provider IN ('openai', 'deepseek', 'ollama')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

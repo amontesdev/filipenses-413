@@ -40,9 +40,9 @@ export async function PATCH(request: NextRequest) {
     );
   }
 
-  if (!["openai", "deepseek"].includes(preferred_provider)) {
+  if (!["openai", "deepseek", "ollama"].includes(preferred_provider)) {
     return NextResponse.json(
-      { error: "Only OpenAI and DeepSeek are supported" },
+      { error: "Only OpenAI, DeepSeek, and Ollama are supported" },
       { status: 400 }
     );
   }

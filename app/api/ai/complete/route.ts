@@ -2,6 +2,28 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { aiComplete } from "@/lib/ai/openai";
 import type { AiField, UserAiKeyWithSecret } from "@/lib/types";
+import type { JSONContent } from "@tiptap/react";
+
+// Extract plain text from TipTap JSON content
+function extractTextFromTipTap(node: JSONContent | null): string {
+  if (!node) return "";
+
+  if (node.text) {
+    return node.text;
+  }
+
+  if (node.content && Array.isArray(node.content)) {
+    const parts = node.content.map((n) => extractTextFromTipTap(n));
+    // Add newline between block elements (paragraph, headings, lists)
+    const blockTags = new Set(["doc", "paragraph", "heading", "bulletList", "orderedList", "listItem", "blockquote"]);
+    if (blockTags.has(node.type || "")) {
+      return parts.join("\n");
+    }
+    return parts.join("");
+  }
+
+  return "";
+}
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
@@ -12,7 +34,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const { field, project_id, project_name } = body;
+  const { field, project_id, project_name, current_value } = body;
 
   if (!field || !["description", "notes", "name"].includes(field)) {
     return NextResponse.json(
@@ -61,7 +83,7 @@ export async function POST(request: NextRequest) {
     // Existing project — fetch from DB
     const { data: project } = await supabase
       .from("projects")
-      .select("id, name, notes")
+      .select("id, name, description, notes")
       .eq("id", project_id)
       .eq("user_id", user.id)
       .single();
@@ -74,11 +96,22 @@ export async function POST(request: NextRequest) {
     }
 
     projectName = project.name;
-    currentValue = field === "notes" ? String(project.notes || "") : undefined;
+
+    // Get current value based on field type
+    if (field === "notes") {
+      currentValue = extractTextFromTipTap(project.notes ? project.notes as JSONContent : null);
+    } else if (field === "description") {
+      currentValue = String(project.description || "");
+    } else if (field === "name") {
+      currentValue = project.name; // existing name as context
+    }
+
+    
   } else if (project_name) {
     // New project — use name directly from form
     projectName = project_name;
-    currentValue = undefined;
+    // Use current_value from form if provided (e.g. description/name filled before AI fill)
+    currentValue = current_value || undefined;
   } else {
     return NextResponse.json(
       { error: "project_id or project_name is required" },
@@ -108,6 +141,20 @@ export async function POST(request: NextRequest) {
     if (message.includes("429") || message.includes("rate limit")) {
       return NextResponse.json(
         { error: "Rate limit exceeded. Please try again in a moment." },
+        { status: 500 }
+      );
+    }
+
+    if (message.includes("connection refused") || message.includes("ECONNREFUSED")) {
+      return NextResponse.json(
+        { error: "Ollama is not running. Start it with 'ollama serve'." },
+        { status: 503 }
+      );
+    }
+
+    if (message.includes("model")) {
+      return NextResponse.json(
+        { error: "Model not found. Check your Ollama model is downloaded." },
         { status: 500 }
       );
     }

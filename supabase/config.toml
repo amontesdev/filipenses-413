@@ -158,7 +158,7 @@ enabled = true
 # in emails.
 site_url = "http://100.109.82.30:3001"
 # The public URL that Auth serves on. Defaults to the API external URL with `/auth/v1` appended.
-# external_url = ""
+external_url = "http://100.109.82.30:64321/auth/v1"
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
 additional_redirect_urls = ["http://100.109.82.30:3001/auth/callback", "http://localhost:3001/auth/callback"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
@@ -335,8 +335,8 @@ skip_nonce_check = false
 email_optional = false
 
 [auth.external.github]
-enabled = false
-client_id = ""
+enabled = true
+client_id = "Ov23lizUW1P0WaICFja6"
 # DO NOT commit your OAuth provider secret to git. Use environment variable substitution instead:
 secret = "env(SUPABASE_AUTH_EXTERNAL_GITHUB_SECRET)"
 # Overrides the default auth callback URL derived from auth.external_url.

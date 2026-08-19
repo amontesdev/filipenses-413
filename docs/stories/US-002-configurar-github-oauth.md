@@ -9,7 +9,7 @@
 | **Rol afectado** | `dev` |
 | **Prioridad** | `media` |
 | **Dependencias** | US-001 |
-| **Estado** | `pendiente` |
+| **Estado** | `en progreso` |
 
 ---
 
@@ -59,3 +59,12 @@ verificar también `NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL` en `.env.local`.
 - [ ] Login con GitHub funciona contra Supabase local
 - [ ] El flujo de callback crea el perfil en `public.profiles`
 - [ ] Documentado en `docs/stories/INDEX.md` como completada
+
+---
+
+## 📝 Notas (2026-08-18)
+
+- **Provider habilitado** con Client ID real + secret via env var (`SUPABASE_AUTH_EXTERNAL_GITHUB_SECRET`).
+- **external_url** = `http://100.109.82.30:64321/auth/v1` → redirect_uri correcta por Tailscale.
+- El authorize redirige a GitHub con callback coincidente. Falta confirmar login end-to-end.
+- ⚠️ El secret se pasa por env var al correr `supabase start` — en cada reinicio hay que volver a pasarla.

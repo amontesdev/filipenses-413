@@ -1,7 +1,7 @@
 # 📋 Filipenses-413 — User Stories
 
 > Archivo maestro de todas las user stories del proyecto.
-> Última actualización: **2026-08-18**
+> Última actualización: **2026-08-19**
 
 ---
 
@@ -22,6 +22,7 @@
 |----|--------|-----|-----------|--------|-----|-----|
 | US-001 | Levantar servidor local (Supabase CLI + Postgres, puerto 3001) | dev | alta | 🟢 Completada ✅ | ✅ | ✅ |
 | US-002 | Configurar GitHub OAuth para auth local | dev | media | 🟡 En progreso | ✅ | ⬜ |
+| US-003 | Supabase local como PROD + respaldo semanal en Supabase Cloud | dev | alta | 🔴 Pendiente | ✅ | ⬜ |
 
 ---
 
@@ -29,7 +30,7 @@
 
 | Estado | Cantidad |
 |--------|----------|
-| 🔴 Pendientes | 0 |
+| 🔴 Pendientes | 1 |
 | 🟡 En progreso | 1 |
 | 🟢 Completadas | 1 |
 | ⚪ Canceladas | 0 |
@@ -40,3 +41,4 @@
 
 - [US-001 — Levantar servidor local](./US-001-levantar-servidor-local.md)
 - [US-002 — Configurar GitHub OAuth](./US-002-configurar-github-oauth.md)
+- [US-003 — Supabase local PROD + backup Cloud](./US-003-supabase-local-prod-backup-cloud.md)

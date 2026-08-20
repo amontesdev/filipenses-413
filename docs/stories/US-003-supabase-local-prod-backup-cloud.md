@@ -72,8 +72,8 @@ Se define el nuevo modelo de operación:
 - [ ] Dirección del push confirmada: local → cloud ✅
 - [ ] Alcance confirmado: schema + datos + `auth.users` + storage ✅
 - [ ] Automatización confirmada: cron cada sábado ✅
-- [ ] **Enlazar el proyecto cloud** / configurar `SUPABASE_ACCESS_TOKEN` (pendiente: el CLI hoy dice "Access token not provided")
-- [ ] Definir ubicación del script y el cron (script + crontab)
+- [x] **Enlazar el proyecto cloud** / configurar token (project `phcpmgfpuobeyptbbgcy`; backup usa Management API con PAT)
+- [x] Definir ubicación: script en `scripts/backup-supabase/` + cron diario 12:00 con reintento que cubre el sábado
 
 ---
 
@@ -94,3 +94,10 @@ Se define el nuevo modelo de operación:
 - [docs/DATABASE_SETUP.md](./../DATABASE_SETUP.md)
 - [docs/SECRETS_ARCHITECTURE.md](./../SECRETS_ARCHITECTURE.md)
 - [US-001 — Levantar servidor local](./US-001-levantar-servidor-local.md)
+
+## 📝 Progreso (2026-08-19)
+- Migración inicial cloud → local: ✅ (7 projects, 18 secrets, 28 activity, 3 ai_keys, 1 pref; user_id remapeado).
+- Backup local → cloud (`backup.py` vía Management API/PAT): ✅ verificado (cloud íntegro, user_id remapeados).
+- Lógica de reintento en `run.sh`: ✅.
+- Cron semanal: ⏳ pendiente de instalar en el host (el entorno no puede escribir `crontab`; requiere corrida manual del usuario).
+- Restauración de prueba: parcial (verificada integridad del cloud post-backup).

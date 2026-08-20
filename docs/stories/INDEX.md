@@ -21,7 +21,7 @@
 | ID | Título | Rol | Prioridad | Estado | DoR | DoD |
 |----|--------|-----|-----------|--------|-----|-----|
 | US-001 | Levantar servidor local (Supabase CLI + Postgres, puerto 3001) | dev | alta | 🟢 Completada ✅ | ✅ | ✅ |
-| US-002 | Configurar GitHub OAuth para auth local | dev | media | 🟡 En progreso | ✅ | ⬜ |
+| US-002 | Configurar GitHub OAuth para auth local | dev | media | 🟢 Completada ✅ | ✅ | ✅ |
 | US-003 | Supabase local como PROD + respaldo semanal en Supabase Cloud | dev | alta | 🔴 Pendiente | ✅ | ⬜ |
 
 ---
@@ -31,8 +31,8 @@
 | Estado | Cantidad |
 |--------|----------|
 | 🔴 Pendientes | 1 |
-| 🟡 En progreso | 1 |
-| 🟢 Completadas | 1 |
+| 🟡 En progreso | 0 |
+| 🟢 Completadas | 2 |
 | ⚪ Canceladas | 0 |
 
 ---

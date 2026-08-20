@@ -9,7 +9,7 @@
 | **Rol afectado** | `dev` |
 | **Prioridad** | `media` |
 | **Dependencias** | US-001 |
-| **Estado** | `en progreso` |
+| **Estado** | `completada` |
 
 ---
 
@@ -56,9 +56,9 @@ verificar también `NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL` en `.env.local`.
 
 ## 🏁 Definition of Done (DoD)
 
-- [ ] Login con GitHub funciona contra Supabase local
-- [ ] El flujo de callback crea el perfil en `public.profiles`
-- [ ] Documentado en `docs/stories/INDEX.md` como completada
+- [x] Login con GitHub funciona contra Supabase local
+- [x] El flujo de callback crea el perfil en `public.profiles`
+- [x] Documentado en `docs/stories/INDEX.md` como completada
 
 ---
 

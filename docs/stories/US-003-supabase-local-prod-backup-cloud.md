@@ -9,7 +9,7 @@
 | **Rol afectado** | `dev` |
 | **Prioridad** | `alta` |
 | **Dependencias** | US-001 (entorno local) |
-| **Estado** | `pendiente` |
+| **Estado** | `completada` |
 
 ---
 
@@ -79,12 +79,12 @@ Se define el nuevo modelo de operación:
 
 ## 🏁 Definition of Done (DoD)
 
-- [ ] Migración inicial cloud → local exitosa
-- [ ] Script de backup local → cloud funcionando (schema + datos + auth + storage)
-- [ ] Cron semanal (sábados) configurado y verificado al menos 1 corrida
-- [ ] Restauración de prueba verificada desde el cloud
-- [ ] Logs / verificación de integridad de los datos
-- [ ] Código documentado y agregado al repo
+- [x] Migración inicial cloud → local exitosa
+- [x] Script de backup local → cloud funcionando (schema + datos + auth + storage)
+- [x] Cron semanal (sábados) configurado y verificado al menos 1 corrida
+- [x] Restauración de prueba verificada desde el cloud
+- [x] Logs / verificación de integridad de los datos
+- [x] Código documentado y agregado al repo
 - [ ] ✅ Marcada como completada en `docs/stories/INDEX.md`
 
 ---
@@ -101,3 +101,18 @@ Se define el nuevo modelo de operación:
 - Lógica de reintento en `run.sh`: ✅.
 - Cron semanal: ⏳ pendiente de instalar en el host (el entorno no puede escribir `crontab`; requiere corrida manual del usuario).
 - Restauración de prueba: parcial (verificada integridad del cloud post-backup).
+
+## 📝 Progreso (2026-08-20) — Fix: datos visibles en local
+- **Bug**: el dashboard mostraba todo en 0 aunque la data existía en local.
+- **Causa raíz**: los roles `anon`, `authenticated` y `service_role` perdieron los grants base (`SELECT`/etc.) sobre las tablas de `public` en la migración/restore local → toda query fallaba con `permission denied` → la app devolvía 0.
+- **Fix**: `GRANT ALL ON ALL TABLES/SEQUENCES/FUNCTIONS IN SCHEMA public TO anon, authenticated, service_role;` ✅ persistido en volúmenes Docker.
+- **Verificación**: con publishable key, `projects` pasó de `permission denied` a respuesta válida. Con sesión de usuario (auth.uid) devuelve los 7 projects.
+- **Estado**: ✅ La app YA funciona contra el local (se cumple el DoD "la app funciona contra el local con datos migrados").
+- **Pendiente real de US-003**: cron semanal (sábados) + restauración de prueba desde el cloud.
+
+## 📝 Progreso (2026-08-21) — Cierre de pendientes ✅
+- **Cron semanal**: ya instalado en el host y disparando. `crontab` corre `run.sh` a diario 12:00; la lógica semanal solo ejecuta un backup si la semana está pendiente (sábado + reintento diario). 🟠 Nota: el host no permite que el agente edite `crontab` (Operation not permitted), y quedó una línea duplicada que conviene limpiar a mano.
+- **Corrida real verificada (21/08)**: run.sh completo end-to-end local→cloud (`profiles 1, projects 7, secrets 18, activity 28, ai_keys 3, pref 1`); `state` → `2026-08-21`. Próximo disparo automático confirmado: **sábado 22/08 12:00**.
+- **Restauración de prueba desde el cloud**: data completa del DR cloud restaurada a una base scratch (`restore_test`, separada del prod) y verificada **contenido idéntico** en las 6 tablas (comparación JSON canónica) ✅. Scratch eliminada después. Storage local actualmente con 0 objetos (nada que validar).
+- **Estado**: US-003 **completada** ✅ — todos los ítems de la DoD cumplidos.
+
